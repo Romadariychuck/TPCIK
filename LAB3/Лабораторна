@@ -1,0 +1,104 @@
+import javax.swing.*;
+import java.awt.*;
+
+public class Main {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Лабораторная работа №3");
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(new BorderLayout());
+        JTabbedPane tabbedPane = new JTabbedPane();
+        frame.add(tabbedPane, BorderLayout.CENTER);
+
+        //Завдання 1. Дано циліндр R. Знайти площу його бічної поверхні та об'єм.
+        JPanel panel1 = new JPanel();
+        panel1.setLayout(new BorderLayout());
+        tabbedPane.addTab("Завдання 1", panel1);
+        JPanel panel1_1 = new JPanel();
+        panel1_1.setLayout(new FlowLayout());
+        panel1.add(panel1_1, BorderLayout.NORTH);
+
+        JLabel label1 = new JLabel("Введіть радіус:");
+        panel1_1.add(label1);
+
+        JTextField textField1 = new JTextField(10);
+        panel1_1.add(textField1);
+        JLabel label2 = new JLabel("Введіть висоту:");
+        panel1_1.add(label2);
+        JTextField textField2 = new JTextField(10);
+        panel1_1.add(textField2);
+
+        JButton button1 = new JButton("Показати");
+        panel1_1.add(button1);
+        JPanel panel1_2 = new JPanel();
+        panel1_2.setLayout(new FlowLayout());
+        panel1.add(panel1_2, BorderLayout.CENTER);
+        JLabel label3 = new JLabel("Площа бічної поверхні:");
+        panel1_2.add(label3);
+        JTextField textField3 = new JTextField(10);
+        panel1_2.add(textField3);
+
+        JLabel label4 = new JLabel("Об'єм:");
+        panel1_2.add(label4);
+        JTextField textField4 = new JTextField(10);
+        panel1_2.add(textField4);
+        button1.addActionListener(e -> {
+            double r = Double.parseDouble(textField1.getText());
+            double h = Double.parseDouble(textField2.getText());
+            double s = 2 * Math.PI * r * h;
+            double v = Math.PI * r * r * h;
+            //Виведення результату на екран з округленням до сотих
+            textField3.setText(String.format("%.1f", s));
+            textField4.setText(String.format("%.1f", v));
+        });
+        frame.setVisible(true);
+
+        //Завдання 2. Графічний застосунок, який за заданим поштовим індексом виводить назву міста, за
+        //яким цей індекс закріплений.
+        JPanel panel2 = new JPanel();
+        panel2.setLayout(new BorderLayout());
+        tabbedPane.addTab("Завдання 2", panel2);
+        JPanel panel2_1 = new JPanel();
+        panel2_1.setLayout(new FlowLayout());
+        panel2.add(panel2_1, BorderLayout.NORTH);
+        JLabel label5 = new JLabel("Введіть поштовий індекс:");
+        panel2_1.add(label5);
+        JTextField textField5 = new JTextField(10);
+        panel2_1.add(textField5);
+        JButton button2 = new JButton("Показати");
+        panel2_1.add(button2);
+        JPanel panel2_2 = new JPanel();
+        panel2_2.setLayout(new FlowLayout());
+        panel2.add(panel2_2, BorderLayout.CENTER);
+        JLabel label6 = new JLabel("Місто:");
+        panel2_2.add(label6);
+        JTextField textField6 = new JTextField(10);
+        panel2_2.add(textField6);
+        button2.addActionListener(e -> {
+            int index = Integer.parseInt(textField5.getText());
+            //Вивести помилку при введенні невірного поштового індексу
+            if (index < 50999 || index > 60001) {
+                JOptionPane.showMessageDialog(frame, "Введіть коректно поштовий індекс", "Помилка", JOptionPane.ERROR_MESSAGE);
+            }
+        else {
+                String city = switch (index) {
+                    case 60000 -> "Київ";
+                    case 59000 -> "Львів";
+                    case 58000 -> "Одеса";
+                    case 57000 -> "Харків";
+                    case 56000 -> "Дніпро";
+                    case 55000 -> "Донецьк";
+                    case 54000 -> "Запоріжжя";
+                    case 53000 -> "Житомир";
+                    case 52000 -> "Вінниця";
+                    case 51000 -> "Кропивницький";
+                    default -> "Місто не знайдено";
+                };
+                textField6.setText(city);
+          }
+        frame.setVisible(true);
+    });
+}
+}
